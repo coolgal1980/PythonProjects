@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/books.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">BR</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="{% url 'books:home' %}">Home<span class="sr-only">(current)</span></a></li>
+              <li><a href="{% url 'books:add_book' %}">Add New Book</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'users:logout' %}">Logout</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+      {% if reviews %}
+
+        <div class="jumbotron">
+          <h1>Hello, {{request.session.first_name}}!</h1>
+          <p>Take a look at the reviews below!</p>
+        </div>
+
+        <h3>Recent Book Reviews <span class="glyphicon glyphicon-book"></span></h3>
+        {% for review in reviews %}
+          <div class="review">
+            <h4><strong><a href="{% url 'books:show' id=review.book.id %}">{{review.book.book_title}}</strong></a></h4>
+            <h4><strong>Rating: {{review.rating}}</strong></h4>
+            <h4>{{review.user.first_name}} says: {{review.review}}</h4>
+            <em><h5>{{review.created_at}}</h5></em>
+          </div>
+        {% endfor %}
+
+        <h3>Other Books with Reviews <span class="glyphicon glyphicon-book"></span></h3>
+        <div class="review">
+          {% for book in books %}
+          <h4><a href="{% url 'books:show' id=book.id %}">{{book.book_title}}</a></h4>
+          {% endfor %}
+        </div>
+
+      {% else %}
+
+      <div class="jumbotron">
+        <h1>Hello, {{request.session.first_name}}!</h1>
+        <p>There are currently no reviews! Please add one! </p>
+      </div>
+
+      {% endif %}
+    </div>
+  </body>
+</html>

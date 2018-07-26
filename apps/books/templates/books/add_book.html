@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Book and Review</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/books.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">BR</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="{% url 'books:home' %}">Home<span class="sr-only">(current)</span></a></li>
+              <li><a href="{% url 'books:add_book' %}">Add New Book</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'users:logout' %}">Logout</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+      {% if messages %}
+        {% for message in messages %}
+          {{message}}
+        {% endfor %}
+      {% endif %}
+
+      <div class="add-review">
+        <h3>Add A New Book and Review <span class="glyphicon glyphicon-book"></span></h3>
+        <form class="form-horizontal" action="{% url 'books:add_book' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="book_title" class="col-sm-1 control-label">Book Title</label>
+            <div class="col-sm-6">
+              <input type="text" name="book_title" class="form-control" placeholder="Book Title">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="author" class="col-sm-1 control-label">Author</label>
+            <div class="col-sm-6">
+              <select class="form-control" name="author1">
+                <option value="">Choose From List</option>
+              {% for book in books %}
+                <option value="{{book.author}}">{{book.author}}</option>
+              {% endfor %}
+              </select>
+              <input type="text" name="author2" class="form-control" placeholder="Add New Author">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="review" class="col-sm-1 control-label">Review</label>
+            <div class="col-sm-6">
+              <textarea class="form-control" name="review" rows="3" placeholder="Review"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="rating" class="col-sm-1 control-label">Rating</label>
+            <div class="col-sm-6">
+              <select class="form-control" name="rating">
+                <option value="*">*</option>
+                <option value="**">**</option>
+                <option value="***">***</option>
+                <option value="****">****</option>
+                <option value="*****">*****</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-6">
+              <button type="submit" class="btn btn-info">Add Book and Review</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
