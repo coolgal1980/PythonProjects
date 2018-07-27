@@ -4,6 +4,26 @@ form{
     padding: 10px;
 }
 
+ul{
+    display: inline-block;
+    padding: 0px;
+    margin:0px;
+    background-color: #eee;
+    border-radius: 6px;
+    width:1020px;
+  }
+  
+ 
+  li{  
+    display: inline-block;
+    list-style-type: none;
+    padding:5px;
+  }
+.register{
+  display:inline-block;
+  vertical-align: top;
+ 
+}
 input[type=text]
 {
     margin-left:10px;

@@ -3,92 +3,75 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Book Reviews</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <title>Book Reviews</title>    
     <link rel="stylesheet" href="{% static 'css/books.css' %}">
   </head>
   <body>
-    <div class="container">
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">BR</a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="{% url 'books:home' %}">Home<span class="sr-only">(current)</span></a></li>
-              <li><a href="{% url 'books:add_book' %}">Add New Book</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="{% url 'users:logout' %}">Logout</a></li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
+   <div>        
+      <ul>
+        <li><h3>Welcome, {{request.session.first_name}}!</h3></li>
+        <li id="nav"> <a href="{% url 'books:home' %}">Home</a></li>|
+        <li><a href="{% url 'books:add_book' %}"> Add Book </a></li>|          
+        <li><a href="{% url 'users:logout' %}">Logout</a></li>
+      </ul>
+    </div>
       {% if messages %}
         {% for message in messages %}
           {{message}}
         {% endfor %}
       {% endif %}
 
-      <div class="jumbotron">
-        <h2>{{book.book_title}} <span class="glyphicon glyphicon-book"></span></h2>
+      <div >
+        <h3>Book: {{book.book_title}} <span class="glyphicon glyphicon-book"></span></h2>
         <p>Author: {{book.author}} </p>
       </div>
-
+      <div class="allReviews">
         {% for review in reviews %}
         <div class="review">
           <h4><strong>Rating: </strong>{{review.rating}}</h4>
           <h4><strong><a href="{% url 'books:user' id=review.user.id %}">{{review.user.first_name}}</a> says: </strong>{{review.review}}</h4>
-          <h5><em>{{review.created_at}}</em></h5>
+          <h5>{{review.created_at}}</h5>
+          
           {% if request.session.user_id == review.user.id %}
-            <a class="btn btn-danger" href="{% url 'books:destroy' id=review.id %}" role="button">
-              Delete <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </a>
+            <h4><a  href="{% url 'books:destroy' id=review.id %}" role="button">
+              Delete 
+            </a></h4>
           {% endif %}
         </div>
         {% endfor %}
-
-      <div class="add-review">
-        <h3>Add Review</h3>
-        <form class="form-horizontal" action="{% url 'books:create_review' id=book.id %}" method="post">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="new_review" class="col-sm-1 control-label">Review</label>
-            <div class="col-sm-6">
-              <textarea class="form-control" name="new_review" rows="3"></textarea>
+      </div>
+      <div class="addreviewSide">
+        <div class="add-review ">
+          <h3>Add Review</h3>
+          <form class="form-horizontal" action="{% url 'books:create_review' id=book.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="new_review" class="col-sm-1 control-label">Review</label>
+              <div class="col-sm-6">
+                <textarea class="form-control" name="new_review" rows="3"></textarea>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="rating" class="col-sm-1 control-label">Rating</label>
-            <div class="col-sm-6">
-              <select class="form-control" name="rating">
-                <option value="*">*</option>
-                <option value="**">**</option>
-                <option value="***">***</option>
-                <option value="****">****</option>
-                <option value="*****">*****</option>
-              </select>
+            <div class="form-group">
+              <label for="rating" class="col-sm-1 control-label">Rating</label>
+              <div class="col-sm-6">
+                <select class="form-control" name="rating">
+                  <option value="*">*</option>
+                  <option value="**">**</option>
+                  <option value="***">***</option>
+                  <option value="****">****</option>
+                  <option value="*****">*****</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-6">
-              <button type="submit" class="btn btn-info">Add Review</button>
+            <div class="form-group">
+              <div class="col-sm-offset-1 col-sm-6">
+                <button type="submit" class="btn btn-info">Add Review</button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+      </div>
       </div>
     </div>
   </body>

@@ -4,11 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'users/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+   {% load staticfiles %}   
+  <link rel="stylesheet" href="{% static '/users/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/books.css' %}">
   <title>Document</title>
 </head>
 <body>
+ <div>        
+      <ul>       
+        <li> <a href="{% url 'users:index' %}">Home</a></li>      
+      </ul>
+    </div>
   {% if messages %}
     <ul class="messages">
       {% for message in messages %}
@@ -18,6 +24,18 @@
       {% endfor %}
     </ul>
   {% endif %}
+ <div class="allReviews">
+  <h2>Login:</h2>
+  <form action="{% url 'users:login' %}" method="post">
+    {% csrf_token %}
+    <p>Email:
+    <input type="text" name="email"> </p>
+    <p>Password:
+    <input type="password" name="password"></p>
+    <p><input type="submit" value="Login"></p>
+  </form>
+  </div>
+  <div class="register">
   <h2>Registeration</h2>
   <form action="{% url 'users:create' %}" method="post">
     {% csrf_token %}
@@ -28,14 +46,7 @@
     <p>Confirm Password: <input type="password" name="confirmPassword"></p>
     <p> <input type="submit" value="Register"></p>
   </form>
-  <h2>users Here</h2>
-  <form action="{% url 'users:login' %}" method="post">
-    {% csrf_token %}
-    <p>Email:
-    <input type="text" name="email"> </p>
-    <p>Password:
-    <input type="password" name="password"></p>
-    <p><input type="submit" value="Login"></p>
-  </form>
+  </div>
+  
 </body>
 </html>
