@@ -28,13 +28,11 @@ def add_book(request):
             # if not Book.objects.filter(author=request.POST['author1']):
             #     messages.error(request, "Please select or add author")
             # if Book.objects.get(author=request.POST['author1']):
-            #     author=request.POST['author1']
-            print("authoris",  request.POST['author1'])
-            print("lenauthr2", len(request.POST['author2']))
+            #     author=request.POST['author1']           
             if len(request.POST['author1']) < 1 or request.POST['author1'] == '' or request.POST['author1'] == '0':
-                print("insidefirstif")
+               
                 if len(request.POST['author2'])<1:
-                    print("second if")
+                    
                     messages.error(request, "Please select or add author") 
                     return redirect('books:add_book')  
                     # return render(request, 'books/add_book.html')                          
@@ -87,14 +85,14 @@ def add_book(request):
         context={
             'books': books
         }
-        print("addbook")
+      
         return render(request, 'books/add_book.html', context)
 
 def show(request, id):
     if not 'first_name' in request.session:
         return redirect('users:index')
     else:
-        print("in here")
+        
         book = Book.objects.get(id=id)
         reviews = book.book_reviews.all()
         context = {
