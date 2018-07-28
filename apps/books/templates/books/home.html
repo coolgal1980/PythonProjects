@@ -4,11 +4,11 @@
   <head>
     <meta charset="utf-8">
     <title>Home Page</title>   
-    <link rel="stylesheet" href="{% static 'css/books.css' %}">
+    <link rel="stylesheet" href="{% static 'books/css/books.css' %}">
   </head>
   <body>
       <div>        
-        <ul>
+        <ul class="nav">
           <li><h3>Welcome, {{request.session.first_name}}!</h3></li>
           <li id="nav"> <a href="{% url 'books:home' %}">Home</a></li>|
           <li><a href="{% url 'books:add_book' %}"> Add Book </a></li>|          

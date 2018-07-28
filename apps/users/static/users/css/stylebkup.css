@@ -1,0 +1,84 @@
+form{
+    /* border: 3px solid black;    */
+    width: 400px;
+    padding: 10px;
+}
+
+.loginerrors{
+display: block!important;
+color: red;
+margin-left: 10px;
+background-color: white;
+margin-top: 10px;
+}
+ 
+li{  
+display: inline-block;
+list-style-type: none;
+padding:5px;
+}
+.register{
+  display:inline-block;
+  vertical-align: top;
+ 
+}
+input[type=text]
+{
+    margin-left:10px;
+}
+.messages{
+    color:red;
+}
+/* select{
+    margin-left: 35px;;
+}
+textarea{
+    display: block;
+    width: 310px;
+    height: 50px;
+    margin-top: 10px;
+} */
+
+.label{
+    margin-right: 30px;
+}
+
+label{
+    vertical-align: top;
+}
+
+
+input[type="submit"]{
+    /* margin-left:275px; */
+    margin-top:20px;
+    background-color: rgb(135, 180, 238);
+}
+
+#name{
+    margin-left: 85px;
+}
+
+#location{
+    margin-left: 30px;
+}
+
+#language{
+    margin-left: 5px;
+}
+
+#comment{
+    margin-left: 60px;
+}
+
+
+h3{
+    text-decoration: underline;
+}
+
+
+.display{
+    padding: 15px;
+    margin:15px;
+    border: 3px solid black;
+    width:400px;
+}

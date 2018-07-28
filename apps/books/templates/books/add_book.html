@@ -4,89 +4,77 @@
   <head>
     <meta charset="utf-8">
     <title>Add Book and Review</title>   
-    <link rel="stylesheet" href="{% static 'css/books.css' %}">
+    <link rel="stylesheet" href="{% static 'books/css/books.css' %}">
   </head>
   <body>
     <div>        
-      <ul>
+      <ul class="nav">
         <li><h3>Welcome, {{request.session.first_name}}!</h3></li>
         <li id="nav"> <a href="{% url 'books:home' %}">Home</a></li>|
         <li><a href="{% url 'books:add_book' %}"> Add Book </a></li>|          
         <li><a href="{% url 'users:logout' %}">Logout</a></li>
       </ul>
-    </div>
-    {% comment %} <p class="errormessages">
-      {% if messages %}
-        {% for message in messages %}
-          {{message}}
-        {% endfor %}
-      {% endif %}
-    </p> {% endcomment %}
+    </div>    
 
     {% if messages %}
-    <ul class="loginerrors">
+    <ul class="errors">
       {% for message in messages %}
-        <li {% if message.tags %}
-          class="{{ message.tags }}"
-        {% endif %}>{{ message }}</li>
+        <li >{{ message }}</li>
       {% endfor %}
     </ul>
-  {% endif %}
+    {% endif %}
 
-  
-
-
-      <div class="add-review">
-        <h3>Add A New Book and Review <span class="glyphicon glyphicon-book"></span></h3>
-        <form  action="{% url 'books:add_book' %}" method="post">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="book_title" class="col-sm-1 control-label">Book Title</label>
-            <div class="col-sm-6">
-              <input type="text" name="book_title" class="form-control" placeholder="Book Title">
-            </div>
+    <div class="add-review">
+      <h4>Add A New Book and Review</h4>
+      <form  action="{% url 'books:add_book' %}" method="post">
+        {% csrf_token %}
+        <div>
+          <label for="book_title" >Book Title</label>
+          <div >
+            <input type="text" name="book_title" class="form-control" placeholder="Book Title">
           </div>
+        </div>
 
-          <div class="form-group">
-            <label for="author" class="col-sm-1 control-label">Author</label>
-            <div class="col-sm-6">
-              <select class="form-control" name="author1">
-                <option value="0">Choose From List</option>
-              {% for book in books %}
-                <option value="{{book.author}}">{{book.author}}</option>
-              {% endfor %}
-              </select>
-              <input type="text" name="author2" class="form-control" placeholder="Add New Author">
-            </div>
+        <div>
+          <label for="author" >Author</label>
+          <div >
+            <select class="form-control" name="author1">
+              <option value="0">Choose From List</option>
+            {% for book in books %}
+              <option value="{{book.author}}">{{book.author}}</option>
+            {% endfor %}
+            </select>
+            <input type="text" name="author2" class="form-control" placeholder="Add New Author">
           </div>
+        </div>
 
-          <div class="form-group">
-            <label for="review" class="col-sm-1 control-label">Review</label>
-            <div class="col-sm-6">
-              <textarea class="form-control" name="review" rows="3" placeholder="Review"></textarea>
-            </div>
+        <div>
+          <label for="review" >Review</label>
+          <div>
+            <textarea  name="review" rows="3" placeholder="Review"></textarea>
           </div>
+        </div>
 
-          <div class="form-group">
-            <label for="rating" class="col-sm-1 control-label">Rating</label>
-            <div class="col-sm-6">
-              <select class="form-control" name="rating">
-                <option value="*">*</option>
-                <option value="**">**</option>
-                <option value="***">***</option>
-                <option value="****">****</option>
-                <option value="*****">*****</option>
-              </select>
-            </div>
+        <div >
+          <label for="rating" >Rating</label>
+          <div >
+            <select  name="rating">
+              <option value="*">*</option>
+              <option value="**">**</option>
+              <option value="***">***</option>
+              <option value="****">****</option>
+              <option value="*****">*****</option>
+            </select>
           </div>
+        </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-6">
-              <button type="submit" class="btn btn-info">Add Book and Review</button>
-            </div>
+        <div >
+          <div>
+            <button type="submit" >Add Book and Review</button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
+  </div>
   </body>
 </html>

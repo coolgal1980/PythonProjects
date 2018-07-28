@@ -5,48 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
    {% load staticfiles %}   
-  <link rel="stylesheet" href="{% static '/users/css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/books.css' %}">
-  <title>Document</title>
+  <link rel="stylesheet" href="{% static '/users/css/style.css' %}">  
+  <title>User Management</title>
 </head>
 <body>
- <div>        
-      <ul>       
-        <li> <a href="{% url 'users:index' %}">Home</a></li>      
-      </ul>
-    </div>
+  <h2>Welcome!</h2>      
   {% if messages %}
-    <ul class="loginerrors">
+  
+    <ul class="errors">
+    <p><strong>Please fix errors:</strong></p>
       {% for message in messages %}
-        <li {% if message.tags %}
-          class="{{ message.tags }}"
-        {% endif %}>{{ message }}</li>
+        <li>{{ message }}</li>
       {% endfor %}
     </ul>
   {% endif %}
- <div class="allReviews">
-  <h2>Login:</h2>
+  <div class="container register">
+  <h3>Register Users</h3>
+  <form action="{% url 'users:create' %}" method="post">
+    {% csrf_token %}
+    <p><label>First Name:</label> <input type="text" name="firstName" ></p>
+    <p><label>Last Name: </label><input type="text" name="lastName" ></p>
+    <p><label>Email: </label><input type="text" name="email">  </p>  
+    <p><label>Password:</label><input type="password" name="password"></p>
+    <p><label>Confirm Password:</label> <input type="password" name="confirmPassword"></p>
+    <p> <input type="submit" value="Register"></p>
+  </form>
+  </div>
+ <div class="container">
+  <h3>Login:</h3>
   <form action="{% url 'users:login' %}" method="post">
     {% csrf_token %}
-    <p>Email:
+    <p><label>Email:</label>
     <input type="text" name="email"> </p>
-    <p>Password:
+    <p><label>Password:</label>
     <input type="password" name="password"></p>
     <p><input type="submit" value="Login"></p>
   </form>
   </div>
-  <div class="register">
-  <h2>Register Users</h2>
-  <form action="{% url 'users:create' %}" method="post">
-    {% csrf_token %}
-    <p>First Name: <input type="text" name="firstName" ></p>
-    <p>Last Name: <input type="text" name="lastName" ></p>
-    <p>Email: <input type="text" name="email">  </p>  
-    <p>Password: <input type="password" name="password"></p>
-    <p>Confirm Password: <input type="password" name="confirmPassword"></p>
-    <p> <input type="submit" value="Register"></p>
-  </form>
-  </div>
+  
   
 </body>
 </html>
