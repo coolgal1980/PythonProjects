@@ -42,6 +42,14 @@ div{
   margin-top:32px;
   margin-left:10px;
 }
+.loginerrors{
+  display: block!important;
+  color: red;
+  margin-left: 10px;
+  background-color: white;
+  margin-top: 10px;
+}
+
 .addreviewSide {
   display:inline-block;
   vertical-align: top;

@@ -15,12 +15,20 @@
         <li><a href="{% url 'users:logout' %}">Logout</a></li>
       </ul>
     </div>
-      {% if messages %}
+      {% comment %} {% if messages %}
         {% for message in messages %}
           {{message}}
         {% endfor %}
-      {% endif %}
-
+      {% endif %} {% endcomment %}
+      {% if messages %}
+          <ul class="loginerrors">
+            {% for message in messages %}
+              <li {% if message.tags %}
+                class="{{ message.tags }}"
+              {% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       <div >
         <h3>Book: {{book.book_title}} <span class="glyphicon glyphicon-book"></span></h2>
         <p>Author: {{book.author}} </p>

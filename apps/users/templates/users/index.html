@@ -36,7 +36,7 @@
   </form>
   </div>
   <div class="register">
-  <h2>Registeration</h2>
+  <h2>Register Users</h2>
   <form action="{% url 'users:create' %}" method="post">
     {% csrf_token %}
     <p>First Name: <input type="text" name="firstName" ></p>
