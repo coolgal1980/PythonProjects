@@ -72,7 +72,7 @@ class UserManager(models.Manager):
         user = self.get(email=request.POST['email'])
         password = request.POST['password'].encode()      
         if bcrypt.checkpw(password.encode(),  user.password.encode()):
-            return (True, user)
+          return (True, user)
       # If neither exist, just return false automatically. If one of these returns false, return the same result to keep confidentiality
     except ObjectDoesNotExist:
       pass
