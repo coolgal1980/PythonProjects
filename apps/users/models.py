@@ -69,9 +69,15 @@ class UserManager(models.Manager):
   def login_validation(self, request):
     # Check if user email and password are in database, and if they match    
     try:
+        # user = self.get(email=request.POST['email'])
+        # password = request.POST['password'].encode()      
+        # if bcrypt.checkpw(password.encode(),  user.password.encode()):
         user = self.get(email=request.POST['email'])
-        password = request.POST['password'].encode()      
-        if bcrypt.checkpw(password.encode(),  user.password.encode()):
+        hashed = user.password        
+        hashed = hashed.encode('utf-8')        
+        password = request.POST['password']
+        password = password.encode('utf-8')        
+        if bcrypt.hashpw(password, hashed) == hashed:          
           return (True, user)
       # If neither exist, just return false automatically. If one of these returns false, return the same result to keep confidentiality
     except ObjectDoesNotExist:

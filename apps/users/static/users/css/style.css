@@ -12,7 +12,13 @@ ul{
     border-radius: 6px;
     width:1020px;
   }
-  
+  .loginerrors{
+    display: block!important;
+    color: red;
+    margin-left: 10px;
+    background-color: white;
+    margin-top: 10px;
+  }
  
   li{  
     display: inline-block;
